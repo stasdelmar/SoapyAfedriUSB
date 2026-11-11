@@ -4,7 +4,7 @@ import numpy as np
 
 def main():
     SoapySDR.setLogLevel(SoapySDR.SOAPY_SDR_DEBUG)
-    af = SoapySDR.Device(dict(driver="afedri", address="192.168.1.41", port="61000"))
+    af = SoapySDR.Device(dict(driver="afedri_usb"))
     print(af)
     num_channels = af.getNumChannels(SoapySDR.SOAPY_SDR_RX)
     print(f"num_channels={num_channels}")
