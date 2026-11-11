@@ -1,40 +1,18 @@
-# Soapy SDR plugin for Afedri SDR-Net
+# SoapyAfedriUSB - SoapySDR Plugin for Afedri SDR USB
 
-## What is this thing?
+USB support for Afedri SDR receivers via SoapySDR framework.
 
-The SoapyAfedri project provides a plugin module to use the Afedri SDR-Net device within the SoapySDR API and software that supports SoapySDR. This driver supports only TCP/UDP communication transport with the device. 
+## Features
 
+- USB HID control via HIDAPI
+- Support for MSD (Mass Storage Device) mode file reading
+- Support for UDP I/Q data streaming
+- Multi-channel support (1-4 channels)
+- Sample rates up to 1536000 Hz
+- Frequency range 0-2 GHz
+- Compatible with GQRX, CubicSDR, OpenWebRXPlus
 
-## Dependencies
+## Requirements
 
-* SoapySDR - https://github.com/pothosware/SoapySDR/wiki
-
-
-```shell
-sudo apt-get install build-essential
-sudo apt-get install cmake
-
-```
-
-## Build with cmake
-
-```shell
-git clone https://github.com/alexander-sholohov/SoapyAfedri.git
-cd SoapyAfedri
-mkdir build
-cd build
-cmake ..
-cmake --build . 
-sudo cmake --install .
-```
-
-## Probing Soapy Afedri:
-
-```shell
-SoapySDRUtil --find
-SoapySDRUtil --probe="driver=afedri,address=192.168.1.41,port=61000"
-```
-
-### Tested with:
-- OpenWebRX
-- SDR++
+bash
+sudo apt-get install libsoapysdr-dev libhidapi-dev libusb-1.0-0-dev cmake
