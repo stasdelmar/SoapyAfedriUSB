@@ -5,8 +5,10 @@
 #include <condition_variable>
 #include <cstdint>
 #include <chrono>
+#include <cstddef>
 
-// Простой потокобезопасный кольцевой буфер для int16_t отсчётов (I/Q interleaved)
+// Потокобезопасный буфер для int16_t отсчётов (I/Q interleaved: I0,Q0,I1,Q1,...)
+// Один поток пишет (push), другой читает (pop) с таймаутом.
 class RingBuffer
 {
 public:
@@ -15,7 +17,6 @@ public:
     {
     }
 
-    // Добавить данные (вызывается из потока чтения raw-пакетов)
     void push(const int16_t *data, size_t count)
     {
         std::unique_lock<std::mutex> lock(_mtx);
@@ -32,8 +33,8 @@ public:
         _cv.notify_all();
     }
 
-    // Попытаться прочитать ровно count элементов с таймаутом (в мс)
-    // Возвращает true если удалось полностью заполнить out
+    // Пытается прочитать ровно count элементов (int16_t значений, НЕ комплексных отсчётов)
+    // Возвращает true если удалось полностью заполнить out в пределах timeout_ms.
     bool pop(int16_t *out, size_t count, int timeout_ms)
     {
         std::unique_lock<std::mutex> lock(_mtx);
