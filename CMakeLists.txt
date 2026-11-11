@@ -22,8 +22,7 @@ endif()
 
 ########################################################################
 # Find hidapi via pkg-config
-# На Debian/Ubuntu пакет: libhidapi-dev
-# Может называться hidapi-libusb или hidapi-hidraw в зависимости от backend
+# Debian/Ubuntu package: libhidapi-dev
 ########################################################################
 find_package(PkgConfig REQUIRED)
 
@@ -38,7 +37,7 @@ if(NOT HIDAPI_FOUND)
     message(FATAL_ERROR "HIDAPI not found! Install: sudo apt-get install libhidapi-dev")
 endif()
 
-message(STATUS "HIDAPI found: ${HIDAPI_LIBRARIES}")
+message(STATUS "HIDAPI found, libs: ${HIDAPI_LIBRARIES}")
 
 ########################################################################
 # Threads
@@ -46,7 +45,7 @@ message(STATUS "HIDAPI found: ${HIDAPI_LIBRARIES}")
 find_package(Threads REQUIRED)
 
 ########################################################################
-# Include directories
+# Include / link directories
 ########################################################################
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/include
